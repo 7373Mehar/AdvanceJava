@@ -1,0 +1,52 @@
+<html>
+ <head>
+   <style>
+     .ta{
+         border:3px solid teal;background-color:cyan;margin:auto;border-radius:7px
+       }
+      td{
+	padding:15px;
+      }
+     .la{
+	font-size:22px;color:red;font-family:arial
+      } 
+     input{
+	font-size:20px;border-radius:4px
+     }  
+     #bt{
+	font-size:20px;background-color:blue;color:white;padding:4px 15px;
+	border-radius:3px;cursor:hand;border:none
+     } 
+   </style>
+ </head> 
+ <body>
+  <form>
+    <div style='text-align:center;margin-bottom:10px'>
+     <h2>User login form</h2>
+    </div>
+    <table class='ta'>
+     <tr>
+       <td>
+	  <label class='la'>Enter username</label>
+       </td>
+       <td>
+	<input type='text' name='user'>
+       </td>
+     </tr>
+     <tr>
+       <td>
+	 <label class='la'>Enter password</label></td>
+       <td>
+	<input type='password' name='pass'>
+      </td>
+     </tr>
+     <tr>
+       <td colspan='2' align='right'>
+	<button id='bt'>Submit</button>
+	<button id='bt' style='background-color:orange'>Cancel</button>
+	</td>
+     </tr>
+    </table>
+  </form>
+ </body>
+</html>

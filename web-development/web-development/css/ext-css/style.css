@@ -1,0 +1,28 @@
+.ta{
+   border:3px solid teal;background-color:cyan;margin:auto;border-radius:7px
+}
+td{
+  padding:15px;
+}
+.la{
+  font-size:22px;color:red;font-family:arial
+} 
+input{
+  font-size:20px;border-radius:4px
+}  
+#bt{
+  font-size:20px;background-color:blue;color:white;padding:4px 15px;
+  border-radius:3px;cursor:hand;border:none
+} 
+.dv{
+  text-align:center;
+  margin-top:20px;
+  margin-bottom:20px;
+}
+.hdu{
+  font-family:lucida calligraphy;
+  background-color:gray;
+  color:white;
+  padding:6px 30px;
+  font-size:25px;
+}

@@ -1,0 +1,40 @@
+CSS(Cascading style sheet)
+==========================
+By using CSS wen make interactive web pages
+We can change look and feel of elements by using CSS
+We can change following properties of elements
+1)Fore ground and background color
+2)Font-size,font-family and font-style
+3)Location
+4)Margin
+5)Padding
+6)Border
+etc
+
+property:value
+---------------
+color:red
+background-color:yellow
+font-size:20px
+font-family:times new roman
+font-weight:bold
+
+We will have to define these properties so that browser can apply it on elemnts before showing elements to the user
+We can define these properties on three lavel
+1)Element level(Inline CSS)
+2)Page lavel(Iternal CSS)
+3)Application level(External CSS)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

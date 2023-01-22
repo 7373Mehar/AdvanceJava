@@ -1,0 +1,34 @@
+HTML(Hyper text markup language)
+================================
+It is used in web page design
+HTML is full of tags.We will use these tags in web page designing
+There are few empty tags and most of tags are container
+Few empty tags are
+input,img,hr,br,etc
+
+Container(Combination of start tag and end tag) tags are
+=========================================================
+html:It is root tag
+It has following two childs
+1)head tag
+2)body tag
+
+<html>
+ <head>
+  <title>My page</title>
+ </head>
+ <body>
+  This is conent of the page
+ </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

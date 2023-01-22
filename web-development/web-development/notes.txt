@@ -1,0 +1,11 @@
+Web development
+===============
+Developing web application
+--------------------------
+The application that runs on web server is known as web application
+We will user follpowing to develop these applications in java
+1)HTML:It is used to design web pages
+2)CSS(Cascading style sheet):To make web pages interactive
+3)JS(Java script):Input validation in web pages as well as interactive web pages
+4)Servlets technology:It is a java technology.It is used to make web pages dynamic
+5)JSP technology(Java server pages):It is a java technology.It is used to make web pages dynamic
