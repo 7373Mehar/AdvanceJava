@@ -1,0 +1,13 @@
+INDEX VERSION 1.131+C:\CETPA\weekend\adv\5-7\web-development\JSP\.metadata\.plugins\org.eclipse.jdt.core
+2449941372.index
+274194699.index
+3426768054.index
+1726915452.index
+3275758914.index
+3721386892.index
+675944620.index
+1714254179.index
+2040851702.index
+105747541.index
+2199658181.index
+379389988.index

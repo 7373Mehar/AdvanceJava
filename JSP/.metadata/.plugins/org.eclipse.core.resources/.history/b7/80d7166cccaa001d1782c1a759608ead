@@ -1,0 +1,33 @@
+function makeActive(p)
+{
+	document.getElementById(p).style.color="red";
+}
+function checkEmployee()
+{
+	if(document.getElementById("eid").value==-1)
+	{
+		alert("Please select name of employee then submit");
+		return false;
+	}
+	return true;
+}
+function showPhoto()
+{
+	var eid=document.getElementById("eid").value; 
+	if(eid==-1)
+	{
+		return false;
+	}
+	var obj=new XMLHttpRequest();
+    obj.onreadystatechange=function()
+    { 
+     if(obj.readyState==4)
+     {
+       var res=obj.responseText;
+       document.getElementById("photo").innerHTML=res; 
+     }
+    };
+    var url="show-photo.jsp?eid="+eid;
+    obj.open("GET",url);
+    obj.send();
+}

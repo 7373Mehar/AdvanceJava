@@ -1,0 +1,77 @@
+package com.cetpa;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+
+@WebListener
+public class DbConnection implements ServletContextListener 
+{
+	public void contextInitialized(ServletContextEvent evt) 
+	{
+		String qr="select ti.eid,name,outtime,intime,totaltime,date from timeinfo ti join employeeinfo e on ti.eid=e.eid";
+		ServletContext app=evt.getServletContext();
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection cn1=DriverManager.getConnection("jdbc:mysql://localhost/","root","mysql");
+			createDatabase(cn1);
+			Connection cn=DriverManager.getConnection("jdbc:mysql://localhost/wjsp5","root","mysql");
+			createTables(cn);
+			PreparedStatement pssave=cn.prepareStatement("insert into employeeinfo values(?,?,?,?,?)");
+			app.setAttribute("save",pssave);
+			Statement stlist=cn.createStatement();
+			app.setAttribute("list",stlist);
+			PreparedStatement psoutsave=cn.prepareStatement("insert into timeinfo(eid,outtime,intime,totaltime,date) values(?,?,?,?,?)");
+			app.setAttribute("outsave",psoutsave);
+			PreparedStatement psoutstatus=cn.prepareStatement("update employeeinfo set outstatus=? where eid=?");
+			app.setAttribute("outstatus",psoutstatus);
+			PreparedStatement psouttime=cn.prepareStatement("select outtime from timeinfo where eid=? and intime='Not in yet' and date=(select curdate())");
+			app.setAttribute("outtime",psouttime);
+			PreparedStatement psinsave=cn.prepareStatement("update timeinfo set intime=?,totaltime=? where eid=? and intime='Not in yet' and date=(select curdate())");
+			app.setAttribute("insave",psinsave);
+			PreparedStatement psreportcd=cn.prepareStatement("select * from timeinfo where date=(select curdate())");
+			app.setAttribute("reportcd",psreportcd);
+			PreparedStatement psreportad=cn.prepareStatement("select * from timeinfo where date=?");
+			app.setAttribute("reportad",psreportad);
+			PreparedStatement psreportdb=cn.prepareStatement("select * from timeinfo where date between ? and ?");
+			app.setAttribute("reportdb",psreportdb);
+			PreparedStatement psempdetails=cn.prepareStatement("select * from employeeinfo where eid=?");
+			app.setAttribute("empdetails",psempdetails);
+			PreparedStatement psreportcd1=cn.prepareStatement("select * from timeinfo where eid=? and date=(select curdate())");
+			app.setAttribute("reportcd1",psreportcd1);
+			PreparedStatement psreportad1=cn.prepareStatement("select * from timeinfo where eid=? and date=?");
+			app.setAttribute("reportad1",psreportad1);
+			PreparedStatement psreportdb1=cn.prepareStatement("select * from timeinfo where eid=? and date between ? and ?");
+			app.setAttribute("reportdb1",psreportdb1);
+			PreparedStatement pspdfcd=cn.prepareStatement(qr+" where date=(select curdate())");
+			app.setAttribute("pdfcd",pspdfcd);
+			PreparedStatement pspdfad=cn.prepareStatement(qr+" where date=?");
+			app.setAttribute("pdfad",pspdfad);
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+	private static void createDatabase(Connection cn1) throws Exception
+	{
+		Statement st=cn1.createStatement();
+		st.execute("create database if not exists wjsp5");
+		System.out.println("Database created...");
+	}
+	private static void createTables(Connection cn)throws Exception
+	{
+		Statement st=cn.createStatement();
+		st.execute("create table if not exists employeeinfo(eid int primary key,name varchar(30),department varchar(30),photo varchar(100),outstatus varchar(3))");
+		Statement st1=cn.createStatement();
+		st1.execute("create table if not exists timeinfo(id int primary key auto_increment,eid int,outtime varchar(30),intime varchar(30),totaltime varchar(30),date date)");
+		System.out.println("Table created...");
+	}
+}

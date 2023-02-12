@@ -1,0 +1,41 @@
+package com.report;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.*;
+import java.sql.*;
+
+@WebServlet("/pdf-current-date")
+public class CurrentDateReportServlet extends HttpServlet 
+{
+	private static PreparedStatement ps;
+	private static String curDate;
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		ServletContext servletContext = request.getSession().getServletContext();
+		File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+		String temperotyFilePath = tempDirectory.getAbsolutePath();
+		String fileName = "current-date" + System.currentTimeMillis() + ".pdf";
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "attachment; " + "filename=" + fileName);
+		try 
+		{
+			LocalDate dt=LocalDate.now();
+			String dd=LocalDateTime.chageDateFormat(dt.toString());
+			ps=(PreparedStatement)servletContext.getAttribute("psdateselect");
+			ps.setObject(1,dt);
+			ResultSet rst=ps.executeQuery();
+			Report.createPDF(temperotyFilePath + "\\" + fileName,dd,rst);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			baos = Report.convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+			OutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+		}
+		catch (Exception e1) 
+		{
+			e1.printStackTrace();
+		}
+	}
+}

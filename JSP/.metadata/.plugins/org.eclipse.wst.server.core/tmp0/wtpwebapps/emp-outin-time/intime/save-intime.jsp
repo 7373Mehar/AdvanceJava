@@ -1,0 +1,30 @@
+<%@page import="com.cetpa.TimeCalculator"%>
+<%@page import="java.time.*"%>
+<%@ include file="../navbar.jsp" %>
+<%
+String val=request.getParameter("eid");
+String eid=val.substring(val.indexOf('(')+1,val.length()-1);
+PreparedStatement ps1=(PreparedStatement) application.getAttribute("outtime");
+ps1.setString(1,eid);
+ResultSet rst=ps1.executeQuery();
+rst.next();
+String outtime=rst.getString(1);
+PreparedStatement ps=(PreparedStatement) application.getAttribute("insave");
+LocalTime lt=LocalTime.now();
+String intime=lt.getHour()+":"+lt.getMinute()+":"+lt.getSecond();
+ps.setString(1,intime);
+ps.setString(2,TimeCalculator.getTotalTime(intime,outtime));
+ps.setString(3,eid);
+ps.executeUpdate();
+%>
+<jsp:include page="../update-outstatus.jsp">
+ <jsp:param value="in" name="status"/>
+ <jsp:param value="<%=eid%>" name="eid"/>  
+</jsp:include>
+<html>
+ <body onload="makeActive('in')">
+  <div class='dv'>
+    <label class='lam'>In time of <font color='red'><%=val%></font> has been recorded</label>
+  </div>
+ </body>
+</html>

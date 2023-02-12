@@ -1,0 +1,9 @@
+<%@page import="java.sql.*"%>
+<%
+    PreparedStatement ps=(PreparedStatement)application.getAttribute("psselectemp");
+    ps.setString(1,request.getParameter("eid"));
+    ResultSet rst=ps.executeQuery();
+    rst.next();
+    String file=rst.getString(4);
+%>
+<img src="../photos/<%=file%>" height="120px" width="130px">

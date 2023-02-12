@@ -1,0 +1,10 @@
+package com.report;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.io.*;
+
+
+public class CurrentDateReportServlet 
+{
+}

@@ -1,0 +1,40 @@
+package com.report;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.*;
+import java.sql.*;
+import java.time.LocalDate;
+
+@WebServlet("/pdf-any-date")
+public class AnyDateReportServlet extends HttpServlet 
+{
+	private static PreparedStatement ps;
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		ServletContext servletContext = request.getSession().getServletContext();
+		File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+		String temperotyFilePath = tempDirectory.getAbsolutePath();
+		String fileName = "any-date" + System.currentTimeMillis() + ".pdf";
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "attachment; " + "filename=" + fileName);
+		try 
+		{
+			LocalDate dt=LocalDate.parse(request.getParameter("date"));
+			ps=(PreparedStatement)servletContext.getAttribute("pdfcd");
+			ps.setObject(1,dt);
+			ResultSet rst=ps.executeQuery();
+			Report.createPDF(temperotyFilePath + "\\" + fileName,dt.toString(),rst);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			baos = Report.convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+			OutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+		}
+		catch (Exception e1) 
+		{
+			e1.printStackTrace();
+		}
+	}
+}

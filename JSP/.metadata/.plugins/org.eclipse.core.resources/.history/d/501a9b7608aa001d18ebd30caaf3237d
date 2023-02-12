@@ -1,0 +1,35 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.sql.*"%>
+<%@ include file='../navbar.jsp' %>
+<html>
+ <body onload='makeActive("datewise")'>
+ <%
+ PreparedStatement ps=(PreparedStatement)application.getAttribute("reportcd");
+ ResultSet rst=ps.executeQuery();
+ %>
+ <div class='dvv'>
+     <label class='hdu'>Report of current date</label>
+  </div>
+  <div class='container'>
+   <div class='card col-md-12 mx-auto'>
+    <div class='card-body'>
+     <%if(!rst.next()){%>
+       <div class='dv'>
+        <label class='la' style='color:red'>No employee is went out yet today</label>
+       </div>
+     <%}
+     else
+     {
+    	 request.setAttribute("rst",rst);
+	 %>
+     <jsp:include page="../report2.jsp" />
+     <%}%>
+    </div>
+   </div>
+  </div>
+  <div class='dvv'>
+	 <button class='btr' onclick='history.back()'>Back</button>
+	 <a class='btr' style='background-color:orange' href='../pdf-current-date'>Generate PDF Report</a>
+  </div>
+ </body>
+</html>

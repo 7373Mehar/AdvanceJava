@@ -1,0 +1,15 @@
+JSP(Java server pages)
+======================
+It is extension of servlets
+Building dynamic web page using JSP is much easier than servlets
+Inside JSP page we can write both HTML code and java code separately
+<html>
+ <body>
+  <h2>Welcome</h2>
+  <%
+  String name="Rehan Ahmad";
+  %>
+  <%=name%>
+ </body>  
+</html>
+

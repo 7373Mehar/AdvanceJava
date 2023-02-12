@@ -1,0 +1,16 @@
+<%@ include file="../navbar.jsp" %>
+<%
+String path="C:/CETPA/weekend/adv/5-7/web-development/JSP/employee-outin-time-management/WebContent/photos";
+PreparedStatement ps=(PreparedStatement) application.getAttribute("save");
+ps.setString(1,request.getParameter("eid"));
+ps.setString(2,request.getParameter("name"));
+ps.setString(3,request.getParameter("department"));
+ps.executeUpdate();
+%>
+<html>
+ <body onload="makeActive('add')">
+<div class='dv'>
+ <label class='lah'>Employee record has been saved successfully</label>
+</div>
+</body>
+</html>

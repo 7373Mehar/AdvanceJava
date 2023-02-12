@@ -1,0 +1,7 @@
+Application object
+===================
+It is an object of ServletContext interface
+Web server creates this object each time it(Web started) is started
+Only one copy of this object is created
+In this object our program can keep data as well as reference of other objects
+Application object is accessible in every JSP page and servlets

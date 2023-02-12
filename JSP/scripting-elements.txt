@@ -1,0 +1,23 @@
+Scritping elements
+===================
+These elements can be added into JSP page to write java code
+There are three scripting elements
+1)Scriplet element
+<%
+ java code
+%>
+2)Expression element
+<%=
+ value/variable/java code expression
+%>
+3)Declaration element
+<%!
+Code to declare variable or method
+%>
+
+1:Remember code written inside scriptlet will be inserted into service method of auto-generated servlet as it is
+2:Remember code written inside expression will be inserted into service method of auto-generated as a print statement
+3:Remember code written inside declaration will be inserted into class of of auto-generated servlet as it is
+
+
+

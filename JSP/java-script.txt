@@ -1,0 +1,8 @@
+Java Script
+===========
+It is an object based scripting language
+By using this language we can define client side functions
+Code of the function will run on browser
+It means these functions will run client side
+By defining these functions we can apply client side validation of page/form
+We can make our pages interactive using these functions

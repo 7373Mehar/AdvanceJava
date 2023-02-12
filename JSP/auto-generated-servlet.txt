@@ -1,0 +1,6 @@
+Auto-generated servlet
+=======================
+Every JSP page is translated/converted into a servlet by web server
+This servlet is known as auto-generated servlet
+Code(both HTML and java) written inside JSP page is inserted into service method of auto-generated servlet by web server
+

@@ -1,0 +1,14 @@
+package com.report;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.*;
+
+@WebServlet("/pdf-current-date")
+public class CurrentDateReportServlet extends HttpServlet 
+{
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+	}
+}

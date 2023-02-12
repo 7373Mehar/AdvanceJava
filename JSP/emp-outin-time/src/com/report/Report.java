@@ -1,0 +1,109 @@
+package com.report;
+import java.io.*;
+import java.sql.ResultSet;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+
+public class Report 
+{
+	public static ByteArrayOutputStream convertPDFToByteArrayOutputStream(String fileName) 
+	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try 
+		{
+			InputStream inputStream = new FileInputStream(fileName);
+			byte[] buffer = new byte[1024];
+			baos = new ByteArrayOutputStream();
+			int bytesRead;
+			while ((bytesRead = inputStream.read(buffer)) != -1) 
+			{
+				baos.write(buffer, 0, bytesRead);
+			}
+			inputStream.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return baos;
+	}
+	public static Document createPDF(String file,String dt,ResultSet rst) 
+	{
+		Document document = null;
+		try 
+		{
+			document = new Document();
+			PdfWriter.getInstance(document, new FileOutputStream(file));
+			document.open();
+			addTitlePage(document,dt);
+			createTable(document,rst);
+			document.close();
+		}  
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return document;
+	}
+	private static void addTitlePage(Document document,String dt) throws DocumentException 
+	{
+		Paragraph preface = new Paragraph();
+		preface.add(new Paragraph("All employee Report ", new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD)));
+		preface.add(new Paragraph("Employee Report on "+dt,new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD)));
+		document.add(preface);
+	}
+	private static void creteEmptyLine(Paragraph paragraph, int number) 
+	{
+		for (int i = 0; i < number; i++) 
+		{
+			paragraph.add(new Paragraph(" "));
+		}
+	}
+	private static void createTable(Document document,ResultSet rst) throws DocumentException 
+	{
+		Paragraph paragraph = new Paragraph();
+		creteEmptyLine(paragraph, 1);
+		document.add(paragraph);
+		PdfPTable table = new PdfPTable(new float[] {10,10,24,10,13,18,15});
+		table.setWidthPercentage(100);
+		String[] hd= {"S.N","Id","Name","Out time","In time","Total time","Date"};
+		for(int i=0;i<7;i++)
+		{
+			PdfPCell c1 = new PdfPCell(new Phrase(hd[i]));
+			c1.setNoWrap(true);
+			c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.addCell(c1);
+		}
+		table.setHeaderRows(1);
+		PdfPCell[] cells = table.getRow(0).getCells();
+		for (int j = 0; j < cells.length; j++)
+		{
+			cells[j].setBorderColor(BaseColor.BLACK);
+			cells[j].setBackgroundColor(BaseColor.GRAY);
+		}
+		try 
+		{
+			PdfPCell tableCell = null;
+			table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+			table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
+			int sn=0;
+			while (rst.next()) 
+			{
+				tableCell = new PdfPCell(new Phrase(String.valueOf(++sn)));
+				table.addCell(tableCell);
+				for(int c=1;c<=6;c++)
+				{
+					String res=rst.getString(c);
+					tableCell = new PdfPCell(new Phrase(res));
+					tableCell.setNoWrap(true);
+					table.addCell(tableCell);
+				}
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		document.add(table);
+	}
+}

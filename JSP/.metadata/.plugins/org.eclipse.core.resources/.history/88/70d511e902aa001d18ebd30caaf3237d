@@ -1,0 +1,18 @@
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.LocalTime"%>
+<%@ include file="../navbar.jsp" %>
+<%
+String val=request.getParameter("eid");
+String eid=val.substring(val.indexOf('(')+1,val.length()-1);
+%>
+<jsp:include page="../update-outstatus.jsp">
+ <jsp:param value="in" name="status"/>
+ <jsp:param value="<%=eid%>" name="eid"/>  
+</jsp:include>
+<html>
+ <body onload="makeActive('out')">
+  <div class='dv'>
+    <label class='lam'>Out time of <font color='red'><%=val%></font> has been recorded</label>
+  </div>
+ </body>
+</html>
